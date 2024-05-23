@@ -1,0 +1,112 @@
+{% extends 'app/base.html' %}]
+{% load static %}
+{% block title %}
+  Upload Video
+{% endblock %}
+
+{% block main-content %}
+
+  <h2 class="text-light fs-1 fw-bold">Upload Video</h2>
+
+  <div class="loader" style="display: none;">
+    <div class="loader-icon" ></div>
+  </div>
+  <button type="button" id="reload-button" class="reload-button" style="display: none;">
+    Interupt and Save
+  </button>
+
+  <form method="post" id="video-form" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <label for="video_link">Enter video link:</label>
+    <div class="row pb-3">
+     
+       <div class="form-group ">
+         <input type="file" class="form-control" name="video_file" id="video_file" accept="video/*" required>
+       </div>
+
+   </div>
+    <button type="submit">Upload Video</button>
+  </form>
+  {% comment %} <video autoplay loop muted src="{% static "app/images/sample_canvas.webm" %}"></video> {% endcomment %}
+  <div id="message-popup" class="message-popup">{{message}}</div>
+  <canvas id="video-canvas" width="640" height="360">  </canvas>
+  {% comment %} <video autoplay loop muted src="{% static "app/images/sample_canvas.webm" %}"></video> {% endcomment %}
+  <script>
+    const videoCanvas = document.getElementById('video-canvas');
+    const ctx = videoCanvas.getContext('2d');
+    const form = document.getElementById('video-form');
+    const loader = document.querySelector('.loader');
+    const reloadButton = document.getElementById('reload-button');
+    const image = new Image();
+    image.onload = function() {
+      ctx.drawImage(image, 0, 0, videoCanvas.width, videoCanvas.height)
+    };
+    image.src = '{% static "app/images/sample_road.png" %}';
+
+
+    const csrfToken = '{{ csrf_token }}'; // Get the CSRF token from Django's template context
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const videoFile = event.target.elements.video_file.files[0];
+      if (!videoFile) {
+          // Handle the case when no file is selected
+          return;
+      }
+
+      const formData = new FormData();
+      formData.append('video_file', videoFile);
+      loader.style.display = 'flex'; // Show loader on form submission
+      reloadButton.style.display = 'flex';
+      const response = await fetch('/upload_video/', {
+          method: 'POST',
+          headers: {
+              'X-CSRFToken': csrfToken, // Include the CSRF token in the request headers
+          },
+          body: formData,
+      });
+
+
+      if (response.ok) {
+        loader.style.display = 'none'; 
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder
+
+      let chunks = [];
+
+      const processChunk = async () => {
+        const { done, value } = await reader.read();
+        if (done) {
+            // Handle the end of the stream (optional)
+            window.location.reload();
+            return;
+        }
+        chunks.push(decoder.decode(value));
+        const entireStream = chunks.join('');
+        const frames = entireStream.split('--frame\r\n');
+        for (let i = 1; i < frames.length; i++) {
+            const frameData = frames[i].split('\r\n\r\n')[1];
+            const img = new Image();
+            img.onload = () => {
+                ctx.drawImage(img, 0, 0, videoCanvas.width, videoCanvas.height);
+            };
+            img.src = `data:image/jpeg;base64,${frameData}`;
+        }
+        await processChunk(); // Await the recursive call
+      };
+      processChunk();
+    } else {
+      // Handle potential errors in the response (e.g., display error message)
+      console.error('Error processing video:', await response.text());
+    }
+  });
+
+
+  reloadButton.addEventListener('click', () => {
+    window.location.reload();
+    
+  });
+</script>
+{% endblock %}

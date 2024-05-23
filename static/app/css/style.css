@@ -1,0 +1,261 @@
+body {
+     font-family: sans-serif;
+     margin: 0;
+     text-align: center;
+     background-image: url('/static/app/images/background.jpg');
+     /* background-size: 100%; */
+     background-size: cover; /* Ensure the background image covers the entire body */
+     background-position: center; /* Center the background image */
+     background-attachment: fixed; /* Fix the background image position */ 
+}
+.table {
+     background-color: white; /* Set table background to white */
+}
+.table th, .table td {
+     border-color: rgba(255, 255, 255, 0.5); /* Light grey border with transparency */
+}
+h2 {
+     font-size: 24px;
+     margin-bottom: 20px;
+}
+.video-row {
+     transition: transform 0.3s ease;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ }
+
+ .video-row:hover {
+     transform: scale(1.01);
+ }
+
+ .video-table {
+     width: 100%;
+     border-collapse: collapse;
+     margin-bottom: 20px;
+     border-radius: 10px;
+     overflow: hidden;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   }
+ 
+   .video-table th,
+   .video-table td {
+     padding: 15px;
+     text-align: left;
+     border-bottom: 1px solid #ddd;
+   }
+ 
+   .video-table th {
+     background-color: #f2f2f2;
+     color: #333;
+     font-weight: bold;
+   }
+   .modal-content {
+     background-color: #222; /* Dark background color */
+   }
+   .video-table tbody tr:hover {
+     background-color: #f9f9f9;
+   }
+
+   .thumbnail-img {
+     max-width: 160px;
+     max-height: 90px;
+   }
+ 
+   .actions-btns button {
+     margin-right: 5px;
+   }
+form {
+     background-color: #f5f5f5;
+     border: 1px solid #ccc;
+     padding: 20px;
+     border-radius: 5px;
+     width: 400px;
+     margin: 0 auto; /* Center the form */
+}
+
+label {
+     display: block;
+     margin-bottom: 5px;
+}
+
+input[type="text"],
+button[type="submit"] {
+     width: 100%;
+     padding: 10px;
+     border: 1px solid #ccc;
+     border-radius: 3px;
+     box-sizing: border-box;
+     margin-bottom: 10px;
+}
+
+button[type="submit"] {
+     background-color: #4CAF50;
+     color: white;
+}
+
+canvas {
+     border: 4px solid #ccc;
+     margin-top: 20px;
+     border-color: sandybrown;
+     border-radius: 3px;
+}
+.canvas_copy {
+     border: 4px solid #ccc;
+     margin-top: 20px;
+     border-color: sandybrown;
+     border-radius: 3px;
+}
+/* Loader styles */
+.loader {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+     z-index: 999; /* Ensure loader is displayed above other elements */
+}
+
+.loader-icon {
+     width: 80px;
+     height: 80px;
+     border: 8px solid #fff; /* White border */
+     border-radius: 50%;
+     border-top-color: #4CAF50; /* Blue color for the top */
+     animation: spin 1s linear infinite; /* Animation for spinning */
+}
+
+@keyframes spin {
+     from { transform: rotate(0deg); }
+     to { transform: rotate(360deg); }
+}
+.hm-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.video-container {
+  position: relative;
+  width: 30%;
+  height: 0;
+  padding-bottom: 30%;
+  overflow: hidden;
+  border-radius: 100px;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.3);
+  margin-right: 20px;
+  right:250px;
+}
+
+.video-container video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.algorithm-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.algorithm-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 75px;
+  background-color: rgba(93, 65, 65, 0.25);
+  border: 5px solid #7377ef;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #ffffff;
+  font-size:larger;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.algorithm-link:hover {
+  background-color: rgba(240, 240, 240, 0.5);
+}
+   .message-popup {
+     position: fixed;
+     top: 10px;
+     right: 10px; /* Adjust for desired positioning */
+     padding: 10px 20px;
+     border-radius: 5px;
+     z-index: 999; /* Ensure it stays on top */
+     transition: opacity 0.3s ease-in-out; /* Smooth fade effect */
+   }
+   
+   /* Default styling for message content */
+   .message-popup > strong {
+     font-weight: bold;
+     margin-right: 5px;
+   }
+   
+   /* Error message styles */
+   .message-popup-error {
+     background-color: rgba(252, 53, 69, 0.75); /* Reddish background with 75% opacity */
+     color: white;
+   }
+   
+   /* Other message types (adjust colors as needed) */
+   .message-popup-info {
+     background-color: rgba(40, 167, 254, 0.75); /* Blueish background */
+     color: white;
+   }
+   
+   .message-popup-success {
+     background-color: rgba(40, 255, 157, 0.75); /* Greenish background */
+     color: black;
+   }
+   
+   /* Optional hover effect for interactivity */
+   .message-popup:hover {
+     opacity: 0.85; /* Slightly darken on hover */
+   }
+
+
+   #reload-button {
+     position: fixed; /* Ensures it stays fixed regardless of content scrolling */
+     bottom: 10px; /* Adjust based on nav height */
+     right: 10px; /* Positions it 10px from the right edge */
+     padding: 10px 20px;
+     background-color: #3498db; /* Adjust background color as needed */
+     color: white;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer; /* Indicates clickable behavior */
+     font-weight: bold;
+   }
+ 
+   /* Optional: Adjust styling based on hover state */
+   #reload-button:hover {
+     background-color: #2980b9; /* Darken background on hover */
+   }
+
+   .srt-img {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%; /* Aspect ratio of 1:1 (square) */
+    background-color: #fff; /* White background */
+    overflow: hidden;
+  }
+  
+  .srt-img img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Preserve aspect ratio and fit within the container */
+  }
