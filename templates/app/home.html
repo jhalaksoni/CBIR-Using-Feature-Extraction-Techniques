@@ -5,7 +5,6 @@
   Home
 {% endblock %}
 {% block main-content %}
-
 <div class="hm-container">
   <div class="video-container">
       <video autoplay loop muted>
@@ -14,11 +13,18 @@
   </div>
 
   <div class="algorithm-links">
-      <a href="{% url 'lens' %}" class="algorithm-link">Image Search (HOG)</a>
+      {% comment %} <a href="{% url 'lens' %}" class="algorithm-link">Image Search (HOG)</a>
       <a href="{% url 'sift' %}" class="algorithm-link">Image Search (SIFT)</a>
       <a href="{% url 'surf' %}" class="algorithm-link">Image Search (SURF)</a>
       <a href="{% url 'glcm' %}" class="algorithm-link">Image Search (GLCM)</a>
-      <a href="{% url 'gabor' %}" class="algorithm-link">Image Search (Gabor)</a>
+      <a href="{% url 'gabor' %}" class="algorithm-link">Image Search (Gabor)</a> {% endcomment %}
+
+      <a href="{% url 'color' %}" class="algorithm-link">Color Based</a>
+      <a href="{% url 'texture' %}" class="algorithm-link">Texture Based</a>
+      <a href="{% url 'shape' %}" class="algorithm-link">Shape Based</a>
+      <a href="{% url 'deep' %}" class="algorithm-link">Deep Learning Methods</a>
+
+
   </div>
 </div>
 {% comment %} 

@@ -1,0 +1,49 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %} Edge Histogram {% endblock %}
+{% block main-content %}
+
+<div class="hog-container">
+    <h2 class="hog-main-title">Edge Histogram</h2>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form id="image-form" enctype="multipart/form-data" method="post" action="{% url 'edge' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="query_image" class="form-label">Select an image file:</label>
+                    <input type="file" class="form-control" id="query_image" name="query_image" accept="image/*" required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Search Similar Using Edge Histogram Algorithm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% if sorted_images %}
+<div class="container">
+    <h3 class="text-light mt-4">Similar Images Using Edge Histogram:</h3>
+    <div class="row">
+        {% for filename, similarity in sorted_images%}
+            {%if similarity >= 0.70%}
+            <div class="col-md-3 mb-4">
+                <div class="srt-img">
+                    <img src="{% static 'app/database/' %}{{ filename }}" alt="{{ filename }}" class="img-fluid">
+                </div>
+                <p class="text-light mt-2">Similarity: {{ similarity }}</p>
+            </div>
+            {%endif%}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if error_message %}
+<div class="container">
+    <div class="alert alert-danger">{{ error_message }}</div>
+</div>
+{% endif %}
+{% endblock %}

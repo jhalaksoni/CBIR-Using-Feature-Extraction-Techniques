@@ -2,7 +2,9 @@
 {% load static %}
 {% block title %} HOG {% endblock %}
 {% block main-content %}
-<h2 class="text-light fs-1 fw-bold text-center mb-4">Upload Query Image</h2>
+<div class="hog-container">
+    <h2 class="hog-main-title">Histogram Oriented Gradient</h2>
+</div>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -28,7 +30,7 @@
             {%if similarity >= 0.70%}
             <div class="col-md-3 mb-4">
                 <div class="srt-img">
-                    <img src="{% static 'app/outfit/' %}{{ filename }}" alt="{{ filename }}" class="img-fluid">
+                    <img src="{% static 'app/database/' %}{{ filename }}" alt="{{ filename }}" class="img-fluid">
                 </div>
                 <p class="text-light mt-2">Similarity: {{ similarity }}</p>
             </div>
